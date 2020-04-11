@@ -4,58 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".InputSetActvity">
+    tools:context=".InputSetActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_height="262dp"
+        android:layout_gravity="center"
+        android:gravity="bottom|center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/downButton"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:background="#017BEC" />
 
         <TextView
             android:id="@+id/cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="3" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="번 입력해주세요" />
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="-10dp"
+            android:text="3"
+            android:textColor="#017BEC"
+            android:textSize="95sp" />
 
         <Button
             android:id="@+id/upButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="위" />
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:background="#017BEC" />
 
-        <Button
-            android:id="@+id/downButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="아래" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="343dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="70dp"
+            android:gravity="center"
+            android:text="번 입력합니다."
+            android:textColor="#F3000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/finishButton"
-            android:layout_width="wrap_content"
+            android:layout_width="221dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="완료" />
+            android:text="확인"
+            android:textColor="#F3000000"
+            android:background="@drawable/finishbutton"
+            />
     </LinearLayout>
 </LinearLayout>

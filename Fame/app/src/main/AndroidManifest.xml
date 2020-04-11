@@ -11,9 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlarmrepeatSetActivity"></activity>
+        <activity android:name=".CompleteActivity"></activity>
+        <activity android:name=".LevelSetActivity" />
+        <activity android:name=".TestActivity" >
+
+        </activity>
+        <activity android:name=".AlarmrepeatSetActivity" />
         <activity android:name=".InputSetActivity" />
-        <activity android:name=".MissionActivity"></activity>
+        <activity android:name=".MissionActivity" />
         <activity android:name=".AlarmSetActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
     </application>
 

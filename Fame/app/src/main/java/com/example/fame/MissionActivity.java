@@ -3,19 +3,17 @@ package com.example.fame;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MissionActivity extends AppCompatActivity {
 
     Button inputButton;
-    Button XButton;
-
+    Button BasicButton;
+    static int result=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -23,32 +21,46 @@ public class MissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mission);
 
         inputButton=(Button) findViewById(R.id.inputButton);
-        XButton=(Button) findViewById(R.id.XButton);
-
+        BasicButton=(Button) findViewById(R.id.BasicButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),InputSetActivity.class);
-                startActivityForResult(intent,100);
+                startActivityForResult(intent,101);
             }
         });
-
+        BasicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.putExtra("category", "기본");
+                setResult(0,intent);
+                finish();
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100) {
+        if (requestCode == 101) {
             Intent intent = new Intent();
-            int count = data.getIntExtra("count", -1);
-            String category=data.getStringExtra("category");
+            int count = intent.getIntExtra("count", -1);
+            String category = data.getStringExtra("category");
+            intent.putExtra("category", category);
             intent.putExtra("count", count);
-            intent.putExtra("category",category);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+            if(resultCode==0) {//input
+                setResult(0, intent);
+                result=0;
+                finish();
+            }else if(resultCode==1){//기본
+                result=1;
+            }else if(resultCode==2){
+                result=2;
+            }
 //            전페이지에서 보낸 값을 받아오는 메서드
         }
     }
@@ -59,7 +71,14 @@ public class MissionActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
                 Intent intent=new Intent();
-                setResult(Activity.RESULT_OK, intent);
+                if(result==1) {
+                    intent.putExtra("category", "기본");
+                    setResult(1, intent);
+
+                }else if(result==0||result==2){
+                    intent.putExtra("category", "입력하기");
+                    setResult(1, intent);
+                }
                 finish();
                 return true;
             }

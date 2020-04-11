@@ -1,14 +1,19 @@
 package com.example.fame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -19,18 +24,23 @@ public class InputSetActivity extends AppCompatActivity {
     Button downButton;
     Button finishButton;
     int count=3;
+    static String result = "";
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_set_actvity);
-
-        cnt=findViewById(R.id.cnt);
+        Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT).show();
+        cnt=(TextView)findViewById(R.id.cnt);
         upButton=findViewById(R.id.upButton);
         downButton=findViewById(R.id.downButton);
         finishButton=findViewById(R.id.finishButton);
+        mContext = this;
+        count=Integer.parseInt(cnt.getText().toString());
 
+        Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         upButton.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +66,10 @@ public class InputSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
-                intent.putExtra("category", "input");
+                result="입력하기";
+                intent.putExtra("category", "입력하기");
                 intent.putExtra("count",count);
-                setResult(Activity.RESULT_OK, intent);
+                setResult(0, intent);
                 finish();
             }
         });
@@ -68,8 +79,16 @@ public class InputSetActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                Intent intent=new Intent();
-                setResult(Activity.RESULT_OK, intent);
+
+                if(result.equals("입력하기")) {
+                    Intent intent=new Intent();
+                    intent.putExtra("category", result);
+                    setResult(2, intent);
+                }else{
+                    Intent intent=new Intent();
+                    intent.putExtra("category", "기본");
+                    setResult(1, intent);
+                }
                 finish();
                 return true;
             }
@@ -77,4 +96,61 @@ public class InputSetActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //뒤로가기
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String data=savedInstanceState.getString("data");
+        cnt.setText(data);
+    }//화면을 돌려도 값을 변하지 X
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Toast.makeText(this, "onSaveInstanceState", Toast.LENGTH_SHORT).show();
+        String data = cnt.getText().toString();
+        outState.putString("data",data);
+
+    }//화면을 돌려도 값을 변하지 X
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(result.equals("입력하기")){
+            result="입력하기";
+            restoreState();
+        }
+    }
+
+
+    protected void saveState(){
+       SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+       SharedPreferences.Editor editor=pref.edit();
+       editor.putString("data",cnt.getText().toString());
+       editor.commit();
+   }//상태 저장
+
+    private void restoreState() {
+        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        if((pref!=null)&&(pref.contains("data"))){
+            String data=pref.getString("data","");
+            cnt.setText(data);
+            count=Integer.parseInt(cnt.getText().toString());
+        }
+    }//재개될 때 데이터를 다시 불러오는 메서드
+
+    public void clearMyPrefs(){
+        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }
