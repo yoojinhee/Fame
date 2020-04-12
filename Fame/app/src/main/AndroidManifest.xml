@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fame">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="kr.hs.emirim.s2018s16.fame">
 
     <application
         android:allowBackup="true"
@@ -11,23 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompleteActivity"></activity>
-        <activity android:name=".LevelSetActivity" />
-        <activity android:name=".TestActivity" >
-
-        </activity>
-        <activity android:name=".AlarmrepeatSetActivity" />
-        <activity android:name=".InputSetActivity" />
-        <activity android:name=".MissionActivity" />
-        <activity android:name=".AlarmSetActivity">
+        <activity android:name=".SliderepeatSetActivity"></activity>
+        <activity android:name=".SlideSetActivity" />
+        <activity android:name=".CategoryActivity" />
+        <activity android:name=".SelModeActivity" />
+        <activity android:name=".WordSetActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>
