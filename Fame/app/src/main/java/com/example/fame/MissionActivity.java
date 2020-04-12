@@ -3,6 +3,7 @@ package com.example.fame;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +14,7 @@ public class MissionActivity extends AppCompatActivity {
 
     Button inputButton;
     Button BasicButton;
-    static int result=1;
+    static int result=Activity.RESULT_CANCELED;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,7 +37,7 @@ public class MissionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent();
                 intent.putExtra("category", "기본");
-                setResult(0,intent);
+                setResult(Activity.RESULT_OK,intent);
                 finish();
             }
         });
@@ -52,14 +53,14 @@ public class MissionActivity extends AppCompatActivity {
             String category = data.getStringExtra("category");
             intent.putExtra("category", category);
             intent.putExtra("count", count);
-            if(resultCode==0) {//input
-                setResult(0, intent);
-                result=0;
+            if(resultCode== Activity.RESULT_OK) {//input
+                setResult(Activity.RESULT_OK, intent);
+                result=Activity.RESULT_OK;
                 finish();
-            }else if(resultCode==1){//기본
-                result=1;
-            }else if(resultCode==2){
-                result=2;
+            }else if(resultCode==Activity.RESULT_CANCELED){//기본
+                result=Activity.RESULT_CANCELED;
+            }else if(resultCode==Activity.RESULT_FIRST_USER){
+                result=Activity.RESULT_FIRST_USER;
             }
 //            전페이지에서 보낸 값을 받아오는 메서드
         }
@@ -71,13 +72,13 @@ public class MissionActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
                 Intent intent=new Intent();
-                if(result==1) {
+                if(result==Activity.RESULT_CANCELED) {
                     intent.putExtra("category", "기본");
-                    setResult(1, intent);
+                    setResult(Activity.RESULT_CANCELED, intent);
 
-                }else if(result==0||result==2){
+                }else if(result==Activity.RESULT_OK||result==Activity.RESULT_FIRST_USER){
                     intent.putExtra("category", "입력하기");
-                    setResult(1, intent);
+                    setResult(Activity.RESULT_OK, intent);
                 }
                 finish();
                 return true;

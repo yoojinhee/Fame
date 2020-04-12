@@ -36,7 +36,8 @@ public class LevelSetActivity extends AppCompatActivity {
         nextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent=new Intent(getApplicationContext(),CompleteActivity.class);
+                startActivity(intent);
             }
         });
     }

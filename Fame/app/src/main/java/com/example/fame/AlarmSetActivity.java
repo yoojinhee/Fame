@@ -33,6 +33,8 @@ public class AlarmSetActivity extends AppCompatActivity{
     Button repeatButton;
     Button nextButton;
     SeekBar seekBar;
+    boolean Alarmrepeatresult;//알람 반복 설정을 하였는지
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +67,15 @@ public class AlarmSetActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 //                TimeChanged();
-
-                Intent intent=new Intent(getApplicationContext(),LevelSetActivity.class);
+            Intent intent=new Intent(getApplicationContext(),LevelSetActivity.class);
 //                intent.putExtra("시간",hour);
 //                intent.putExtra("분",minute);
-                ((InputSetActivity)InputSetActivity.mContext).clearMyPrefs();
+            //((InputSetActivity)InputSetActivity.mContext).clearMyPrefs();
+            if (Alarmrepeatresult == false) {
+                Toast.makeText(AlarmSetActivity.this, "반복 설정을 해주세요", Toast.LENGTH_SHORT).show();
+            }else{
                 startActivityForResult(intent,300);
+            }
             }
         });
     }
@@ -87,13 +92,20 @@ public class AlarmSetActivity extends AppCompatActivity{
         }
         if (requestCode == 200) {//반복
             if(resultCode== Activity.RESULT_OK) {
+                int cnt=0;
                 int[] index = data.getIntArrayExtra("요일");
                 String day[] = {"일", "월", "화", "수", "목", "금", "토"};
+                Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + index[0]+""+index[1]+""+index[2]+""+index[3]+""+index[4]+""+index[5]+""+index[6], Toast.LENGTH_SHORT).show();
                 DayButtonSet(index, day);
+            }
+            if(repeatButton.getText().toString()=="안함"){
+                Alarmrepeatresult=false;
+            }else{
+                Alarmrepeatresult=true;
             }
 
 //            전페이지에서 보낸 값을 받아오는 메서드
-          //  Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + index[0]+""+index[1]+""+index[2]+""+index[3]+""+index[4]+""+index[5]+""+index[6], Toast.LENGTH_SHORT).show();
+          //
         }
     }
 
@@ -124,7 +136,9 @@ public class AlarmSetActivity extends AppCompatActivity{
         }
         if (count == 7) {
             text = "매일";
+        }else if(count==0){
+            text="안함";
         }
         repeatButton.setText(text);
-    }
+    }//repeatset에서 가져온 값을 버튼 텍스트에 넣어줌
 }

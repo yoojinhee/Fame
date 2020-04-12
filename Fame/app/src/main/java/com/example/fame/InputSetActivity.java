@@ -69,7 +69,7 @@ public class InputSetActivity extends AppCompatActivity {
                 result="입력하기";
                 intent.putExtra("category", "입력하기");
                 intent.putExtra("count",count);
-                setResult(0, intent);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -83,11 +83,11 @@ public class InputSetActivity extends AppCompatActivity {
                 if(result.equals("입력하기")) {
                     Intent intent=new Intent();
                     intent.putExtra("category", result);
-                    setResult(2, intent);
+                    setResult(Activity.RESULT_FIRST_USER, intent);
                 }else{
                     Intent intent=new Intent();
                     intent.putExtra("category", "기본");
-                    setResult(1, intent);
+                    setResult(Activity.RESULT_CANCELED, intent);
                 }
                 finish();
                 return true;
@@ -128,7 +128,6 @@ public class InputSetActivity extends AppCompatActivity {
             restoreState();
         }
     }
-
 
     protected void saveState(){
        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
