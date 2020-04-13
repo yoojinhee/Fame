@@ -13,7 +13,7 @@ import android.widget.Button;
 public class MissionActivity extends AppCompatActivity {
 
     Button inputButton;
-    Button BasicButton;
+    Button basicButton;
     static int result=Activity.RESULT_CANCELED;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mission);
 
         inputButton=(Button) findViewById(R.id.inputButton);
-        BasicButton=(Button) findViewById(R.id.BasicButton);
+        basicButton=(Button) findViewById(R.id.basicButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         inputButton.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +32,7 @@ public class MissionActivity extends AppCompatActivity {
                 startActivityForResult(intent,101);
             }
         });
-        BasicButton.setOnClickListener(new View.OnClickListener() {
+        basicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();

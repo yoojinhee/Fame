@@ -32,7 +32,7 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
 
         Toast.makeText(AlarmrepeatSetActivity.this, result, Toast.LENGTH_SHORT).show();
 
-        finishButton = findViewById(R.id.finishButton);
+        finishButton = findViewById(R.id.nextButton);
         day = new CheckBox[]
                 {
                         (CheckBox)findViewById(R.id.SunCheck),

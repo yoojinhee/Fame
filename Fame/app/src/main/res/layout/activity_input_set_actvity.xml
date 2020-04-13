@@ -64,7 +64,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/finishButton"
+            android:id="@+id/nextButton"
             android:layout_width="221dp"
             android:layout_height="wrap_content"
             android:text="확인"

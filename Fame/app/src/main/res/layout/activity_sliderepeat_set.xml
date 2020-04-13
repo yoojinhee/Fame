@@ -7,12 +7,12 @@
     tools:context="com.example.fame.SliderepeatSetActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/cnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="130dp"
         android:layout_marginBottom="50dp"
-        android:text="0"
+        android:text="5"
         android:textColor="#000000"
         android:textSize="18sp"
 
@@ -36,20 +36,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/upButton"
         android:layout_width="40sp"
         android:layout_height="40sp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="125dp"
         android:text="up"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/cnt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/downButton"
         android:layout_width="40sp"
         android:layout_height="40sp"
         android:layout_marginEnd="125dp"
@@ -59,31 +59,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/cnt" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/finishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="300dp"
-        android:text="이전"
-        android:textSize="18sp"
-        android:background="#00ff0000"
-
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="16dp"
+        android:text="완료"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:text="다음"
-        android:textSize="18sp"
-        android:background="#00ff0000"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/cnt"
             android:layout_width="match_parent"
             android:layout_height="187dp"
             android:text="반복" />
@@ -70,7 +70,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/finishButton"
+                    android:id="@+id/nextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="완료" />

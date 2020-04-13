@@ -1,6 +1,5 @@
 package com.example.fame;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,39 +11,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class InputSetActivity extends AppCompatActivity {
+public class SliderepeatSetActivity extends AppCompatActivity {
 
     TextView cnt;
+    Button finishButton;
     Button upButton;
     Button downButton;
-    Button finishButton;
-    int count=3;
+    int count=5;
     static String result = "";
     public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_set_actvity);
-        Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT).show();
-        cnt=(TextView)findViewById(R.id.cnt);
+        setContentView(R.layout.activity_sliderepeat_set);
+
+        finishButton=findViewById(R.id.finishButton);
         upButton=findViewById(R.id.upButton);
         downButton=findViewById(R.id.downButton);
-        finishButton=findViewById(R.id.nextButton);
-        mContext = this;
-        count=Integer.parseInt(cnt.getText().toString());
+        cnt=(TextView)findViewById(R.id.cnt);
 
-        Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count<10) {
-                    count++;
+                if(count<360) {
+                    count+=5;
                     cnt.setText("" + count);
                 }
             }
@@ -52,8 +46,8 @@ public class InputSetActivity extends AppCompatActivity {
         downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count>1) {
-                    count--;
+                if(count>0) {
+                    count-=5;
                     cnt.setText("" + count);
                 }
             }
@@ -62,30 +56,22 @@ public class InputSetActivity extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent();
-                result="입력하기";
-                intent.putExtra("category", "입력하기");
-                intent.putExtra("count",count);
+                Intent intent = new Intent();
+                intent.putExtra("슬라이드반복",count);
                 setResult(Activity.RESULT_OK, intent);
+                result="반복설정완료";
                 finish();
             }
         });
-    }
 
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
 
-                if(result.equals("입력하기")) {
-                    Intent intent=new Intent();
-                    intent.putExtra("category", result);
-                    setResult(Activity.RESULT_FIRST_USER, intent);
-                }else{
-                    Intent intent=new Intent();
-                    intent.putExtra("category", "기본");
-                    setResult(Activity.RESULT_CANCELED, intent);
-                }
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_CANCELED, intent);
                 finish();
                 return true;
             }
@@ -93,45 +79,25 @@ public class InputSetActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //뒤로가기
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        String data=savedInstanceState.getString("data");
-        cnt.setText(data);
-    }//화면을 돌려도 값을 변하지 X
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        Toast.makeText(this, "onSaveInstanceState", Toast.LENGTH_SHORT).show();
-        String data = cnt.getText().toString();
-        outState.putString("data",data);
-
-    }//화면을 돌려도 값을 변하지 X
-
     @Override
     protected void onPause() {
         super.onPause();
         saveState();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        if(result.equals("완료")){
-            result="완료";
+        if(result.equals("반복설정완료")){
+            result="반복설정완료";
             restoreState();
         }
     }
-
     protected void saveState(){
-       SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
-       SharedPreferences.Editor editor=pref.edit();
-       editor.putString("data",cnt.getText().toString());
-       editor.commit();
-   }//상태 저장
+        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.putString("data",cnt.getText().toString());
+        editor.commit();
+    }//상태 저장
 
     private void restoreState() {
         SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
@@ -148,5 +114,4 @@ public class InputSetActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
     }
-
 }

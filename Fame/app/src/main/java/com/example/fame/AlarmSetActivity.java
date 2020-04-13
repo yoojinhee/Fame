@@ -4,25 +4,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import java.lang.reflect.Field;
-import java.util.Calendar;
 
 public class AlarmSetActivity extends AppCompatActivity{
 
@@ -47,6 +39,10 @@ public class AlarmSetActivity extends AppCompatActivity{
         seekBar=(SeekBar) findViewById(R.id.seekBar);
         seekBar.getProgressDrawable().setColorFilter(Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
         seekBar.getThumb().setColorFilter( Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
+
+        ((InputSetActivity)InputSetActivity.mContext).result="기본";
 
         missionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +84,9 @@ public class AlarmSetActivity extends AppCompatActivity{
             int count = data.getIntExtra("count", -1);
             missionButton.setText(category);
 //            전페이지에서 보낸 값을 받아오는 메서드
+            if(missionButton.getText().toString().equals("기본")) {
+                ((InputSetActivity)InputSetActivity.mContext).result="기본";
+            }
             Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + category + "," + count, Toast.LENGTH_SHORT).show();
         }
         if (requestCode == 200) {//반복
@@ -105,7 +104,6 @@ public class AlarmSetActivity extends AppCompatActivity{
             }
 
 //            전페이지에서 보낸 값을 받아오는 메서드
-          //
         }
     }
 
@@ -141,4 +139,18 @@ public class AlarmSetActivity extends AppCompatActivity{
         }
         repeatButton.setText(text);
     }//repeatset에서 가져온 값을 버튼 텍스트에 넣어줌
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                Intent intent=new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //뒤로가기
 }
