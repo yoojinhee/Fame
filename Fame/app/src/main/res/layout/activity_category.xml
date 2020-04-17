@@ -29,45 +29,26 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/alarmButton"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="80dp"
-            android:background="#017BEC"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
             android:id="@+id/XBbutton"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="184dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="50dp"
             android:background="#7FBCF5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/alarmButton" />
-
-        <Button
-            android:id="@+id/slideButton"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="240dp"
-            android:layout_marginEnd="80dp"
-            android:background="#017BEC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="90dp"
             android:text="슬라이드"
             android:textColor="#020202"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.724"
+            app:layout_constraintHorizontal_bias="0.682"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarmButton" />
+            app:layout_constraintTop_toBottomOf="@+id/slidebutton" />
 
         <TextView
             android:id="@+id/textView21"
@@ -85,13 +66,40 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginEnd="30dp"
             android:text="알람"
             android:textColor="#020202"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.283"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarmButton" />
+
+        <ImageButton
+            android:id="@+id/alarmButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="180dp"
+            android:adjustViewBounds="true"
+            android:background="#00ff0000"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/alram" />
+
+        <ImageButton
+            android:id="@+id/slidebutton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="180dp"
+            android:adjustViewBounds="true"
+            android:background="#00ff0000"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/slide" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
