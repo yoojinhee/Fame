@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/downButton"
+            android:id="@+id/upButton"
             android:layout_width="110px"
             android:layout_height="110px"
             android:layout_gravity="bottom"
@@ -35,7 +35,7 @@
             android:textSize="95sp" />
 
         <Button
-            android:id="@+id/upButton"
+            android:id="@+id/downButton"
             android:layout_width="110px"
             android:layout_height="110px"
             android:layout_gravity="bottom"

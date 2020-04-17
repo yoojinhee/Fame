@@ -10,14 +10,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class SliderepeatSetActivity extends AppCompatActivity {
 
     TextView cnt;
     Button finishButton;
-    Button upButton;
-    Button downButton;
+    ImageButton upButton;
+    ImageButton downButton;
     int count=5;
     static String result = "";
     public static Context mContext;
@@ -28,8 +29,8 @@ public class SliderepeatSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sliderepeat_set);
 
         finishButton=findViewById(R.id.finishButton);
-        upButton=findViewById(R.id.upButton);
-        downButton=findViewById(R.id.downButton);
+        upButton=(ImageButton)findViewById(R.id.downButton);
+        downButton=(ImageButton)findViewById(R.id.upButton);
         cnt=(TextView)findViewById(R.id.cnt);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기

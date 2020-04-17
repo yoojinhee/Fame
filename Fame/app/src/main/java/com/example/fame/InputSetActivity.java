@@ -31,8 +31,8 @@ public class InputSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input_set_actvity);
         Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT).show();
         cnt=(TextView)findViewById(R.id.cnt);
-        upButton=findViewById(R.id.upButton);
-        downButton=findViewById(R.id.downButton);
+        upButton=findViewById(R.id.downButton);
+        downButton=findViewById(R.id.upButton);
         finishButton=findViewById(R.id.nextButton);
         mContext = this;
         count=Integer.parseInt(cnt.getText().toString());

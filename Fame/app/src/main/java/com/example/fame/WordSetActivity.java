@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,8 +17,8 @@ public class WordSetActivity extends AppCompatActivity {
 
     TextView cnt;
     Button nextButton;
-    Button upButton;
-    Button downButton;
+    ImageButton upButton;
+    ImageButton downButton;
     int count=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,8 @@ public class WordSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word_set);
 
         nextButton=findViewById(R.id.nextButton);
-        upButton=findViewById(R.id.upButton);
-        downButton=findViewById(R.id.downButton);
+        upButton=(ImageButton)findViewById(R.id.upButton);
+        downButton=(ImageButton)findViewById(R.id.downButton);
         cnt=(TextView)findViewById(R.id.cnt);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
