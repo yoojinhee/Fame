@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MissionActivity extends AppCompatActivity {
 
-    Button inputButton;
+    ImageButton inputButton;
     Button basicButton;
     static int result=Activity.RESULT_CANCELED;
     @Override
@@ -21,7 +22,7 @@ public class MissionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
 
-        inputButton=(Button) findViewById(R.id.inputButton);
+        inputButton=(ImageButton) findViewById(R.id.inputButton);
         basicButton=(Button) findViewById(R.id.basicButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 

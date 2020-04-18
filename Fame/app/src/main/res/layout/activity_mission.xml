@@ -32,12 +32,27 @@
 
         <Button
             android:id="@+id/basicButton"
-            android:layout_width="85dp"
+            android:layout_width="0dp"
             android:layout_height="85dp"
             android:layout_marginStart="80dp"
+            android:layout_marginEnd="63dp"
             android:background="#017BEC"
+            app:layout_constraintEnd_toStartOf="@+id/inputButton"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-2dp" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/inputButton"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="60dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/input" />
 
         <Button
             android:id="@+id/XButton"
@@ -49,27 +64,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/inputButton"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="240dp"
-            android:layout_marginEnd="80dp"
-            android:background="#017BEC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="72dp"
             android:layout_marginTop="14dp"
+            android:layout_marginBottom="179dp"
             android:text="comming soon..."
             android:textColor="#FF8A8989"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/XButton" />
+            app:layout_constraintTop_toBottomOf="@+id/basicButton"
+            app:layout_constraintVertical_bias="0.967" />
 
         <TextView
             android:id="@+id/textView16"
@@ -88,11 +95,11 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="104dp"
             android:text="입력하기"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/basicButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

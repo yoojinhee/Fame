@@ -17,23 +17,37 @@
             android:layout_width="match_parent"
             android:layout_height="192dp"
             android:gravity="center"
-            android:text="암기할 단어장을 선택해 주세요" />
+            android:text="암기할 단어장을 선택해 주세요."
+            android:textColor="#0A0A0A"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="333dp"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/levelSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginRight="85dp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/levelSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
+            <ImageButton
                 android:id="@+id/nextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="다음" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="right"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/right" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

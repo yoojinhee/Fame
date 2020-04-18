@@ -48,7 +48,7 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dayChecked(day,index);
                 Intent intent = new Intent();
-                intent.putExtra("요일",index);
+                intent.putExtra("dayindex",index);
                 setResult(Activity.RESULT_OK, intent);
                 result="완료";
                 finish();

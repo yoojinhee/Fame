@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,9 +22,12 @@ public class AlarmSetActivity extends AppCompatActivity{
     TimePicker TimePicker;
     String hour;
     String minute;
+    String category;//미션
+    int inputcount;//몇번 입력하는지
+    int []index;//요일
     Button missionButton;
     Button repeatButton;
-    Button nextButton;
+    ImageButton nextButton;
     SeekBar seekBar;
     boolean Alarmrepeatresult;//알람 반복 설정을 하였는지
 
@@ -35,7 +39,7 @@ public class AlarmSetActivity extends AppCompatActivity{
         TimePicker = (TimePicker) findViewById(R.id.time_picker);
         missionButton=(Button) findViewById(R.id.missionButton);
         repeatButton=(Button) findViewById(R.id.repeatButton);
-        nextButton=(Button) findViewById(R.id.nextButton);
+        nextButton=(ImageButton) findViewById(R.id.nextButton);
         seekBar=(SeekBar) findViewById(R.id.seekBar);
         seekBar.getProgressDrawable().setColorFilter(Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
         seekBar.getThumb().setColorFilter( Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
@@ -43,6 +47,7 @@ public class AlarmSetActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         ((InputSetActivity)InputSetActivity.mContext).result="기본";
+        category="기본";
 
         missionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +67,20 @@ public class AlarmSetActivity extends AppCompatActivity{
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TimeChanged();
+                TimeChanged();
             Intent intent=new Intent(getApplicationContext(),LevelSetActivity.class);
-//                intent.putExtra("시간",hour);
-//                intent.putExtra("분",minute);
             //((InputSetActivity)InputSetActivity.mContext).clearMyPrefs();
             if (Alarmrepeatresult == false) {
                 Toast.makeText(AlarmSetActivity.this, "반복 설정을 해주세요", Toast.LENGTH_SHORT).show();
             }else{
+                intent.putExtra("mode","알람");
+                intent.putExtra("hour",hour);
+                intent.putExtra("minute",minute);
+                intent.putExtra("category",category);
+                intent.putExtra("dayindex",index);
+                if(category.equals("입력하기")){
+                    intent.putExtra("count",inputcount);
+                }
                 startActivityForResult(intent,300);
             }
             }
@@ -80,19 +91,20 @@ public class AlarmSetActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 100) {//미션
-            String category = data.getStringExtra("category");
-            int count = data.getIntExtra("count", -1);
+            category = data.getStringExtra("category");
+            inputcount = data.getIntExtra("count", -1);
             missionButton.setText(category);
 //            전페이지에서 보낸 값을 받아오는 메서드
             if(missionButton.getText().toString().equals("기본")) {
                 ((InputSetActivity)InputSetActivity.mContext).result="기본";
+                category="기본";
             }
-            Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + category + "," + count, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + category + "," + inputcount, Toast.LENGTH_SHORT).show();
         }
         if (requestCode == 200) {//반복
             if(resultCode== Activity.RESULT_OK) {
-                int cnt=0;
-                int[] index = data.getIntArrayExtra("요일");
+//                int cnt=0;
+                index = data.getIntArrayExtra("dayindex");
                 String day[] = {"일", "월", "화", "수", "목", "금", "토"};
                 Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + index[0]+""+index[1]+""+index[2]+""+index[3]+""+index[4]+""+index[5]+""+index[6], Toast.LENGTH_SHORT).show();
                 DayButtonSet(index, day);
@@ -116,6 +128,7 @@ public class AlarmSetActivity extends AppCompatActivity{
             minute = TimePicker.getCurrentMinute() + "";
         }
     }//설정한 시간을 값에 넣어줌
+
     public void DayButtonSet(int[] index,String day[]){
         String text="";
         int count=0;
