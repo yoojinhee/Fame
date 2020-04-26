@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fame">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SliderepeatSetActivity" />
+        <activity android:name=".SliderepeatSetActivity"></activity>
         <activity android:name=".SlideSetActivity" />
         <activity android:name=".WordSetActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".SelModeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intetn.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -31,6 +32,15 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MissionActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".AlarmActivity" />
+        <receiver  android:name=".AlarmReceiver"
+                    android:enabled="true"
+                    android:exported="false"
+            />
+
+        <service android:name=".AlarmService"
+                  android:enabled="true"
+            />
     </application>
 
 </manifest>

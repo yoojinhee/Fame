@@ -14,14 +14,13 @@
         android:gravity="bottom|center"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/downButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:background="#00F3EDED"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/left" />
+        <Button
+            android:id="@+id/upButton"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:background="#017BEC" />
 
         <TextView
             android:id="@+id/cnt"
@@ -35,15 +34,13 @@
             android:textColor="#017BEC"
             android:textSize="95sp" />
 
-        <ImageButton
-            android:id="@+id/upButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="0"
-            android:background="#00E9D6D6"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/right" />
+        <Button
+            android:id="@+id/downButton"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:background="#017BEC" />
 
     </LinearLayout>
 

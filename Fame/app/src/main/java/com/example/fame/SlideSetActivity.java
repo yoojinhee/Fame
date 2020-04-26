@@ -9,18 +9,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SlideSetActivity extends AppCompatActivity {
 
-    ImageButton nextButton;
+    Button nextButton;
     Button missionButton;
     Button repeatButton;
-    String category;
-    int inputcount;
-    int repeatcount;
-    int wordcount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +31,10 @@ public class SlideSetActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
-        Intent intent=getIntent();
-        wordcount=intent.getIntExtra("wordcount",-1);
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),LevelSetActivity.class);
-                intent.putExtra("mode","슬라이드");
-                intent.putExtra("wordcount",wordcount);
-                intent.putExtra("repeatcount",repeatcount);
-                intent.putExtra("category",category);
-                if(category.equals("입력하기")){
-                    intent.putExtra("inputcount",inputcount);
-                }
                 startActivity(intent);
             }
         });
@@ -71,23 +57,23 @@ public class SlideSetActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 100) {//미션
-            category = data.getStringExtra("category");
-            inputcount = data.getIntExtra("count", -1);
+            String category = data.getStringExtra("category");
+            int count = data.getIntExtra("count", -1);
             missionButton.setText(category);
 //            전페이지에서 보낸 값을 받아오는 메서드
             if(missionButton.getText().toString().equals("기본")) {
                 ((InputSetActivity)InputSetActivity.mContext).result="reset";
             }
-            Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + category + "," + inputcount, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + category + "," + count, Toast.LENGTH_SHORT).show();
         }
         if (requestCode == 200) {//반복
             if (resultCode == Activity.RESULT_OK) {
-                repeatcount = data.getIntExtra("슬라이드반복",-1);
-                repeatButton.setText(repeatcount+"분마다");
-                if(repeatcount==0){
+                int count = data.getIntExtra("슬라이드반복",-1);
+                repeatButton.setText(count+"분마다");
+                if(count==0){
                     repeatButton.setText("항상");
                 }
-                Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + repeatcount, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + count, Toast.LENGTH_SHORT).show();
             }
         }
     }

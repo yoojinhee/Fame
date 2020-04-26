@@ -36,7 +36,7 @@ public class WordSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),SlideSetActivity.class);
-                intent.putExtra("wordcount",count);
+                intent.putExtra("단어 개수",count);
                 startActivity(intent);
             }
         });

@@ -11,15 +11,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class InputSetActivity extends AppCompatActivity {
 
     TextView cnt;
-    ImageButton upButton;
-    ImageButton downButton;
+    Button upButton;
+    Button downButton;
     Button finishButton;
     int count=3;
     static String result = "";
@@ -32,8 +31,8 @@ public class InputSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input_set_actvity);
         Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT).show();
         cnt=(TextView)findViewById(R.id.cnt);
-        upButton=findViewById(R.id.upButton);
-        downButton=findViewById(R.id.downButton);
+        upButton=findViewById(R.id.downButton);
+        downButton=findViewById(R.id.upButton);
         finishButton=findViewById(R.id.nextButton);
         mContext = this;
         count=Integer.parseInt(cnt.getText().toString());
