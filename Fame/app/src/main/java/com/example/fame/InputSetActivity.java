@@ -11,14 +11,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class InputSetActivity extends AppCompatActivity {
 
     TextView cnt;
-    Button upButton;
-    Button downButton;
+    ImageButton upButton;
+    ImageButton downButton;
     Button finishButton;
     int count=3;
     static String result = "";
@@ -31,8 +32,8 @@ public class InputSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input_set_actvity);
         Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT).show();
         cnt=(TextView)findViewById(R.id.cnt);
-        upButton=findViewById(R.id.downButton);
-        downButton=findViewById(R.id.upButton);
+        upButton=findViewById(R.id.upButton);
+        downButton=findViewById(R.id.downButton);
         finishButton=findViewById(R.id.nextButton);
         mContext = this;
         count=Integer.parseInt(cnt.getText().toString());
@@ -65,7 +66,7 @@ public class InputSetActivity extends AppCompatActivity {
                 Intent intent=new Intent();
                 result="입력하기";
                 intent.putExtra("category", "입력하기");
-                intent.putExtra("count",count);
+                intent.putExtra("inputcount",count);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -120,8 +121,8 @@ public class InputSetActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(result.equals("완료")){
-            result="완료";
+        if(result.equals("입력하기")){
+            result="입력하기";
             restoreState();
         }
     }

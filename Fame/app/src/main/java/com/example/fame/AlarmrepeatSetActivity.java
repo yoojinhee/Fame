@@ -3,6 +3,7 @@ package com.example.fame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
     CheckBox[] day;
     final int[] index=new int[7];
     static String result = "";
+    public static Context mContext;
 
 //    private CompoundButton.OnCheckedChangeListener basic;
     @Override
@@ -48,7 +50,7 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dayChecked(day,index);
                 Intent intent = new Intent();
-                intent.putExtra("요일",index);
+                intent.putExtra("dayindex",index);
                 setResult(Activity.RESULT_OK, intent);
                 result="완료";
                 finish();
@@ -142,6 +144,4 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
     }
-
-
 }

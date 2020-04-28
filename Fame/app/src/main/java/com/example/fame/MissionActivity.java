@@ -3,26 +3,30 @@ package com.example.fame;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MissionActivity extends AppCompatActivity {
 
-    Button inputButton;
-    Button basicButton;
+    ImageButton inputButton;
+    ImageButton basicButton;
     static int result=Activity.RESULT_CANCELED;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
 
-        inputButton=(Button) findViewById(R.id.inputButton);
-        basicButton=(Button) findViewById(R.id.basicButton);
+        inputButton=(ImageButton) findViewById(R.id.inputButton);
+        basicButton=(ImageButton) findViewById(R.id.basicButton);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         inputButton.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +53,10 @@ public class MissionActivity extends AppCompatActivity {
 
         if (requestCode == 101) {
             Intent intent = new Intent();
-            int count = intent.getIntExtra("count", -1);
+            int count = data.getIntExtra("inputcount", -1);
             String category = data.getStringExtra("category");
             intent.putExtra("category", category);
-            intent.putExtra("count", count);
+            intent.putExtra("inputcount", count);
             if(resultCode== Activity.RESULT_OK) {//input
                 setResult(Activity.RESULT_OK, intent);
                 result=Activity.RESULT_OK;

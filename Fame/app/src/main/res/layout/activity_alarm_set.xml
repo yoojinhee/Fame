@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="312dp"
+        android:layout_height="311dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -20,58 +20,56 @@
             android:gravity="center"
             android:text="알람"
             android:textColor="#020202"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <TimePicker
             android:id="@+id/time_picker"
             android:layout_width="wrap_content"
-            android:layout_height="226dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:calendarViewShown="false"
             android:spinnersShown="false"
-            android:timePickerMode="spinner"
-
-            />
+            android:timePickerMode="spinner" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="292dp"
+        android:layout_height="294dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_width="249dp"
+            android:layout_height="62dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="212dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:paddingLeft="55dp"
+                android:gravity="left"
                 android:text="미션"
                 android:textColor="#017BEC"
                 android:textSize="18dp" />
 
             <Button
                 android:id="@+id/missionButton"
-                android:layout_width="205dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#00ff0000"
-                android:paddingRight="60dp"
+                android:gravity="right|center_vertical"
                 android:text="기본"
-                android:textColor="#000000"
+                android:textColor="#666363"
                 android:textSize="18dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="249dp"
             android:layout_height="62dp"
             android:orientation="horizontal">
 
@@ -81,51 +79,57 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:paddingLeft="55dp"
+                android:gravity="left"
                 android:text="반복"
                 android:textColor="#017BEC"
                 android:textSize="18dp" />
 
             <Button
                 android:id="@+id/repeatButton"
-                android:layout_width="206dp"
+                android:layout_width="131dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#00ff0000"
-                android:paddingRight="60dp"
+                android:gravity="right|center_vertical"
                 android:text="안함"
-                android:textColor="#000000"
+                android:textColor="#666363"
                 android:textSize="18dp" />
         </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginLeft="105dp"
-            android:layout_marginRight="105dp"
-            app:tickMarkTint="#017BEC" />
+        <LinearLayout
+            android:layout_width="270dp"
+            android:layout_height="53dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="start"
+                android:layout_weight="0"
+                app:srcCompat="@drawable/speaker" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="218dp"
+                android:layout_height="57dp"
+                app:tickMarkTint="#017BEC" />
+        </LinearLayout>
+
+        <ImageButton
             android:id="@+id/nextButton"
-            android:layout_width="170px"
-            android:layout_height="170px"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="right"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:background="#017BEC"
-            android:shadowColor="#000000" />
+            android:layout_marginTop="90px"
+            android:layout_marginRight="20px"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/right" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 </LinearLayout>
 

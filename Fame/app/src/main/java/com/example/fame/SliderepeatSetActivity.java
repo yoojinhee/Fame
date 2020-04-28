@@ -29,8 +29,8 @@ public class SliderepeatSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sliderepeat_set);
 
         finishButton=findViewById(R.id.finishButton);
-        upButton=(ImageButton)findViewById(R.id.downButton);
-        downButton=(ImageButton)findViewById(R.id.upButton);
+        upButton=(ImageButton)findViewById(R.id.upButton);
+        downButton=(ImageButton)findViewById(R.id.downButton);
         cnt=(TextView)findViewById(R.id.cnt);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
