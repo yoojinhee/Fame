@@ -17,12 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class SelModeActivity extends AppCompatActivity {
 
     ImageButton effortButton;
     //    ImageButton basicButton;
     SQLiteDatabase db;
     DBHelper dbHelper;
+    public List<Word> List ;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -30,6 +33,7 @@ public class SelModeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sel_mode);
 
+        initLoadDB();
 
         effortButton = (ImageButton) findViewById(R.id.effortButton);
 //        basicButton=(ImageButton)findViewById(R.id.basicButton);
@@ -91,5 +95,16 @@ public class SelModeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     //뒤로가기
+
+    private void initLoadDB() {
+
+        DataAdapter mDbHelper = new DataAdapter(getApplicationContext());
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+        // db에 있는 값들을 model을 적용해서 넣는다.
+        List = mDbHelper.getTableData();
+        // db 닫기
+        mDbHelper.close();
+    }
 
 }

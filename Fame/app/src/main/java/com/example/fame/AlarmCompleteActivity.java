@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -88,9 +95,25 @@ public class AlarmCompleteActivity extends AppCompatActivity {
 
     @RequiresApi(api= Build.VERSION_CODES.M)
     private void setAlarm(){//알람 설정
-        this.calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+
+        Cursor cursor;
+        DBHelper dbHelper;
+        dbHelper=DBHelper.getInstance(this);
+        cursor = dbHelper.getReadableDatabase().query(
+                AlarmCategory.CategoryEntry.TABLE_NAME,
+                null,null,null,null,null,null);
+
+        cursor.moveToLast();
+        String hour=cursor.getString(1);
+        String minute=cursor.getString(2);
+
+        Log.e("",hour);
+        Log.e("",minute);
+
+        this.calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour));
         this.calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
         this.calendar.set(Calendar.SECOND, 0);
+
 
         Intent intent=new Intent(this,AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

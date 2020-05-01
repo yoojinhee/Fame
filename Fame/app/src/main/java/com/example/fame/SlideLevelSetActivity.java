@@ -59,9 +59,7 @@ public class SlideLevelSetActivity extends AppCompatActivity {
                 intent.putExtra("repeatcount",repeatcount);
                 intent.putExtra("category",category);
                 intent.putExtra("level", level);
-             //   if(category.equals("입력하기")) {
-                    intent.putExtra("inputcount",inputcount);
-           //     }
+                intent.putExtra("inputcount",inputcount);
                 startActivity(intent);
             }
         });
