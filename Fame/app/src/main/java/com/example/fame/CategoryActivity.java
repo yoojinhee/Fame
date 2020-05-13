@@ -30,7 +30,8 @@ public class CategoryActivity extends AppCompatActivity {
         alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),AlarmSetActivity.class);
+                Intent intent=new Intent(getApplicationContext(),WordSetActivity.class);
+                intent.putExtra("category","alarm");
                 startActivity(intent);
             }
         });
@@ -38,6 +39,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),WordSetActivity.class);
+                intent.putExtra("category","slide");
                 startActivity(intent);
             }
         });

@@ -13,6 +13,8 @@ public class AlarmCategory {
         public static final String COLUMN_NAME_LEVEL="level";
         public static final String COLUMN_NAME_CATEGORY="category";
         public static final String COLUMN_NAME_INPUTCOUNT="inputcount";
+        public static final String COLUMN_NAME_WORDCOUNT="wordcount";
+
 //        public static final String COLUMN_NAME_MODE="mode";
         //public static final String COLUMN_NAME_INDEX="index";
     }

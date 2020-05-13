@@ -22,6 +22,7 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
     int[] index;
     String category;
     int inputcount;
+    int wordcount;
     String level;
 
     @Override
@@ -38,9 +39,8 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
         minute = intent.getStringExtra("minute");
         index = intent.getIntArrayExtra("dayindex");
         category = intent.getStringExtra("category");
-        inputcount=-1;
-        //if(category.equals("입력하기")) {
-            inputcount = intent.getIntExtra("inputcount", -1);
+        wordcount=intent.getIntExtra("wordcount",-1);
+        inputcount = intent.getIntExtra("inputcount", -1);
             Toast.makeText(getApplicationContext(), "알람 : " + hour + "," + minute+ "," + index[0]+ "," + inputcount +","+ category, Toast.LENGTH_LONG).show();
         //}
        // else Toast.makeText(getApplicationContext(), "알람 : " + hour + "," + minute+ "," + index[0] +","+ category, Toast.LENGTH_LONG).show();
@@ -61,6 +61,8 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
                 intent.putExtra("category",category);
                 intent.putExtra("level", level);
                 intent.putExtra("inputcount", inputcount);
+                intent.putExtra("wordcount", wordcount);
+
                 startActivity(intent);
             }
         });
