@@ -25,6 +25,7 @@ public class AlarmSetActivity extends AppCompatActivity{
     String category;//미션
     int inputcount;//몇번 입력하는지
     int []index;//요일
+    int wordcount;
     Button missionButton;
     Button repeatButton;
     ImageButton nextButton;
@@ -35,6 +36,9 @@ public class AlarmSetActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_set);
+
+        Intent intent=getIntent();
+        wordcount=intent.getIntExtra("wordcount",-1);
 
         TimePicker = (TimePicker) findViewById(R.id.time_picker);
         missionButton=(Button) findViewById(R.id.missionButton);
@@ -78,9 +82,9 @@ public class AlarmSetActivity extends AppCompatActivity{
                 intent.putExtra("minute",minute);
                 intent.putExtra("category",category);
                 intent.putExtra("dayindex",index);
-                //if(category.equals("입력하기")){
-                    intent.putExtra("inputcount",inputcount);
-               // }
+                intent.putExtra("inputcount",inputcount);
+                intent.putExtra("wordcount",wordcount);
+
                 startActivityForResult(intent,300);
             }
             }

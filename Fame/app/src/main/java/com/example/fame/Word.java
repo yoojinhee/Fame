@@ -1,12 +1,10 @@
-//보류
 package com.example.fame;
-
-        import android.provider.BaseColumns;
 
 public class Word {
     public int id;
     public String word;
     public String mean;
+
 
     public void setId(int id) {
         this.id = id;
@@ -19,6 +17,20 @@ public class Word {
     public void setMean(String mean) {
         this.mean = mean;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public String getMean() {
+        return mean;
+    }
+
+
     //    public static class WordEntry implements BaseColumns{
 //        public static final String TABLE_NAME="BeginningLevel";
 //        public static final String COLUMN_NAME_ID="id";

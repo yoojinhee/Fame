@@ -19,11 +19,14 @@ public class WordSetActivity extends AppCompatActivity {
     Button nextButton;
     ImageButton upButton;
     ImageButton downButton;
-    int count=3;
+    int count=5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_set);
+
+        Intent getIntent=getIntent();
+        final String category=getIntent.getStringExtra("category");
 
         nextButton=findViewById(R.id.nextButton);
         upButton=(ImageButton)findViewById(R.id.upButton);
@@ -35,16 +38,22 @@ public class WordSetActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),SlideSetActivity.class);
-                intent.putExtra("wordcount",count);
-                startActivity(intent);
+                if(category.equals("slide")) {
+                    Intent intent = new Intent(getApplicationContext(), SlideSetActivity.class);
+                    intent.putExtra("wordcount", count);
+                    startActivity(intent);
+                }else if(category.equals("alarm")) {
+                    Intent intent = new Intent(getApplicationContext(), AlarmSetActivity.class);
+                    intent.putExtra("wordcount", count);
+                    startActivity(intent);
+                }
             }
         });
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count<50) {
-                    count++;
+                if(count<100) {
+                    count+=5;
                     cnt.setText("" + count);
                 }
             }
@@ -52,14 +61,15 @@ public class WordSetActivity extends AppCompatActivity {
         downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count>3) {
-                    count--;
+                if(count>5) {
+                    count-=5;
                     cnt.setText("" + count);
                 }
             }
         });
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

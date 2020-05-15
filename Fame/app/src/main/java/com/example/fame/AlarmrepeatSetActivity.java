@@ -31,6 +31,7 @@ public class AlarmrepeatSetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmrepeat_set);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
+        mContext=this;
 
         Toast.makeText(AlarmrepeatSetActivity.this, result, Toast.LENGTH_SHORT).show();
 

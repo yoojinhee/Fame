@@ -2,8 +2,11 @@ package com.example.fame;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -14,6 +17,10 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,9 +29,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 public class AlarmCompleteActivity extends AppCompatActivity {
 
@@ -34,12 +43,18 @@ public class AlarmCompleteActivity extends AppCompatActivity {
     String category;
     int inputcount;
     String level;
+    int wordcount;
     protected static final String TABLE_NAME = "AlarmCategory";
     ContentValues values;
     Button finishButton;
 
     SQLiteDatabase db;
+    Cursor cursor;
     long newRowId;
+    FileOutputStream outputStream;
+    String fileName;
+    Word word = new Word();
+    WordJson wordJson=new WordJson();
     public static Context mContext;
 
     private Calendar calendar;
@@ -51,7 +66,7 @@ public class AlarmCompleteActivity extends AppCompatActivity {
         finishButton=(Button)findViewById(R.id.finishButton);
 
         final SlideCategory basiccategory=new SlideCategory();
-
+        mContext=this;
         Intent intent = getIntent();
         hour = intent.getStringExtra("hour");
         minute = intent.getStringExtra("minute");
@@ -59,6 +74,8 @@ public class AlarmCompleteActivity extends AppCompatActivity {
         category = intent.getStringExtra("category");
         level=intent.getStringExtra("level");
         inputcount = intent.getIntExtra("inputcount", -1);
+        wordcount = intent.getIntExtra("wordcount", -1);
+
 //        Toast.makeText(getApplicationContext(), "슬라이드 : " + category + "," + hour+ "," + minute+ "," + inputcount+"," + level+","+index[0], Toast.LENGTH_LONG).show();
 
         this.calendar = Calendar.getInstance();
@@ -68,12 +85,13 @@ public class AlarmCompleteActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             public void onClick(View v) {
                 values = new ContentValues();
-//                ((AlarmrepeatSetActivity)AlarmrepeatSetActivity.mContext).clearMyPrefs();
+                ((AlarmrepeatSetActivity)AlarmrepeatSetActivity.mContext).clearMyPrefs();
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_HOUR, hour);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_MINUTE, minute);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_LEVEL, level);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_CATEGORY, category);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_INPUTCOUNT, inputcount);
+                values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_WORDCOUNT, wordcount);
                 getDB();
                 setAlarm();
                 Intent intent=new Intent(AlarmCompleteActivity.this , EffortmodeActivity.class);
@@ -89,9 +107,13 @@ public class AlarmCompleteActivity extends AppCompatActivity {
         if(newRowId==-1){
             Toast.makeText(getApplicationContext(),"저장에 문제가 발생하였습니다",Toast.LENGTH_SHORT).show();
         }else{
+            fileName="alarm.json";
+            writedata();
             Toast.makeText(getApplicationContext(),"저장되었습니다",Toast.LENGTH_SHORT).show();
         }
     }
+    public static AlarmManager alarmManager = null;
+    public static PendingIntent pendingIntent = null;
 
     @RequiresApi(api= Build.VERSION_CODES.M)
     private void setAlarm(){//알람 설정
@@ -113,17 +135,81 @@ public class AlarmCompleteActivity extends AppCompatActivity {
         this.calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour));
         this.calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
         this.calendar.set(Calendar.SECOND, 0);
-
-
-        Intent intent=new Intent(this,AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.e("아이디", String.valueOf(Integer.parseInt(cursor.getString(0))));
 
         //알람 설정
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent=new Intent(this,AlarmReceiver.class);
+//        intent.setAction();
+        pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(cursor.getString(0)), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,this.calendar.getTimeInMillis(),pendingIntent);
+        }else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,this.calendar.getTimeInMillis(),pendingIntent);
+        }else{
+            alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
+        }
 
         //Toast 보여주기(알람 시간 표시)
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault());
         Toast.makeText(this, "Alarm: " + format.format(calendar.getTime()), Toast.LENGTH_LONG).show();
     }
+    public String getLevel(){
+        String sql = null;
+        if(level.equals("초급")){
+            sql ="SELECT * FROM BeginningLevel";
+        }else if(level.equals("중급")) {
+            sql = "SELECT * FROM intermediateLevel";
+        }else if(level.equals("고급")) {
+            sql = "SELECT * FROM highLevel";
+        }
+        return sql;
+    }
+    public void writedata(){
+        Random random=new Random();
+        int iarr[]=new int[wordcount];//중복 제거
+        String startJson = "{\"note\":[";
+        String endJson = "]}";
+        byte[] startbyte = startJson.getBytes();
+        byte[] endbyte = endJson.getBytes();
+
+        cursor = db.rawQuery(getLevel(),null);
+        try {
+            outputStream = openFileOutput(fileName, Context.MODE_APPEND);
+            outputStream.write(startbyte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i<wordcount;i++){
+            iarr[i]=random.nextInt(cursor.getCount());//0~50 데이터개수로 바꾸기 51
+            for(int j=0;j<i;j++){//중복제거
+                if(iarr[i]==iarr[j]) i--;
+            }
+        }
+        for(int k=0; k<wordcount; k++) {
+            cursor.moveToPosition(iarr[k]);
+            word.setId(k);
+            word.setWord( cursor.getString(1));
+            word.setMean( cursor.getString(2));
+            saveFile(k);
+        }
+        try {
+            outputStream.write(endbyte);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveFile(int i){
+        String rest = ",";
+        byte[] restbyte = rest.getBytes();
+        try {
+            outputStream.write(wordJson.toJSon(word).getBytes());
+            if(i<wordcount-1)outputStream.write(restbyte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+

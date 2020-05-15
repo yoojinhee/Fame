@@ -34,7 +34,7 @@ public class AlarmService extends Service {
         }
 
         //알림창 호출
-        Intent intent1=new Intent(this, SlideActivity.class);
+        Intent intent1=new Intent(this, AlarmAcitivity.class);
         intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent1);
 
