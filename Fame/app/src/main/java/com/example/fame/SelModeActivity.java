@@ -34,9 +34,11 @@ public class SelModeActivity extends AppCompatActivity {
 
     ImageButton effortButton;
     ImageButton basicButton;
+    Button quizButton;
+
     SQLiteDatabase db;
-    DBHelper dbHelper;
-    public List<Word> List ;
+    //DBHelper dbHelper;
+   // public List<Word> List ;
     public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 5469;
 
     @SuppressLint("WrongViewCast")
@@ -53,6 +55,7 @@ public class SelModeActivity extends AppCompatActivity {
 
         effortButton = (ImageButton) findViewById(R.id.effortButton);
         basicButton = (ImageButton) findViewById(R.id.basicButton);
+        quizButton=(Button) findViewById(R.id.quizButton);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
@@ -77,6 +80,14 @@ public class SelModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), BasicmodeActivity.class);
                 startActivity(intent);
+            }
+        });
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), QuizmodeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
      }
