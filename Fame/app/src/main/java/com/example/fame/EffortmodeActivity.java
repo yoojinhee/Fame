@@ -1,26 +1,19 @@
 package com.example.fame;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -52,8 +45,6 @@ public class EffortmodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_effortmode);
 
         mContext = this;
-        Intent intent=getIntent();
-        //slidefileName=intent.getStringExtra("slidefileName");
         listView=findViewById(R.id.word_note);
         View footer = getLayoutInflater().inflate(R.layout.activity_effortmode_footer, null, false) ;
         addButton = (Button) footer.findViewById(R.id.addButton);
@@ -127,78 +118,17 @@ public class EffortmodeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//리스트 눌렀을때 단어장으로 이동
                 Intent intent=new Intent(EffortmodeActivity.this,WordActivity.class);
-                Cursor cursor=(Cursor) listViewAdapter.getItem(position);
+                //Cursor cursor=(Cursor) listViewAdapter.getItem(position);
                 intent.putExtra("id",id);
                 intent.putExtra("Category",table);
+                intent.putExtra("table_name",table_name);
+                intent.putExtra("table_id",table_id);
                 fileName=table+".json";
                 intent.putExtra("fileName",fileName);
                 view.setFocusable(false);
                 startActivity(intent);
             }
         });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {//길게 눌렀을때 삭제
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {//삭제
-                AlertDialog.Builder builder=new AlertDialog.Builder(EffortmodeActivity.this,R.style.MyAlertDialogStyle);
-                builder.setMessage("삭제하시겠습니까?");
-                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        db=DBHelper.getInstance(EffortmodeActivity.this).getWritableDatabase();
-                        int deletedcount=db.delete(table_name,
-                                    table_id+"="+id,null);
-                        if(deletedcount==0){
-                            Toast.makeText(EffortmodeActivity.this, "삭제하는데 문제가 발생하였습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            listViewAdapter.swapCursor(getCursor());
-                            if(table.equals("slide")){
-                                Intent intent = new Intent(getApplicationContext(), SlideService.class);
-                                getApplicationContext().stopService(intent);
-                                fileName="slide.json";
-                                if(deleteFile(fileName))
-                                    slidelist();
-                            }
-                            else if (table.equals("alarm")){
-                                cancelAlarmManger(id);
-                                fileName="alarm.json";
-                                if(deleteFile(fileName))
-                                    alarmlist();
-                            }
-                            //Toast.makeText(EffortmodeActivity.this, "삭제함", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder.setNegativeButton("취소",null);
-                builder.show();
-                return true;
-            }
-        });
-    }
-    public static AlarmManager alarmManager = null;
-    public static PendingIntent pendingIntent = null;
-
-    public void cancelAlarmManger(long alarmId) {//알람 삭제
-        if (pendingIntent != null) {
-            Log.e("아이디", String.valueOf(alarmId));
-            alarmManager = (AlarmManager) mContext.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(mContext.getApplicationContext(), AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(mContext.getApplicationContext(), (int)alarmId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-            alarmManager = null;
-            pendingIntent = null;
-        }
-    }
-    public boolean deleteFile(String fileName){
-        String dir = getFilesDir().getAbsolutePath();
-        File f= new File(dir,fileName);
-        if(f.exists()) {
-            //Toast.makeText(mContext, "파일 삭제함", Toast.LENGTH_SHORT).show();
-            f.delete();
-            return true;
-        }else return false;
     }
 
 

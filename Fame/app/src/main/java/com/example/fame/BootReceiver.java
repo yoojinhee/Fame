@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +27,20 @@ public class BootReceiver extends BroadcastReceiver {
         int iarr[];
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             Log.e("","ACTION_BOOT_COMPLETED");
+            Intent mintent;
             if(getslidecnt()>0){
                 iarr=new int[getslidecnt()];
-                Intent mitent = new Intent(context, SlideService.class);
+                mintent = new Intent(context, SlideService.class);
                 for(int i=0;i<getslidecnt(); i++){
                     getslideId(i,iarr);
-                    mitent.putExtra("id",iarr[i]);
+                    mintent.putExtra("id",iarr[i]);
                 }
-                context.startService(mitent);
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+                    context.startForegroundService(mintent);
+                }else context.startService(mintent);
+            }else{
+                mintent = new Intent(context, SlideService.class);
+                context.stopService(mintent);
             }
         }
     }

@@ -25,11 +25,11 @@ public class AlarmSetActivity extends AppCompatActivity{
     String category;//미션
     int inputcount;//몇번 입력하는지
     int []index;//요일
+    String dayindex;
     int wordcount;
     Button missionButton;
     Button repeatButton;
     ImageButton nextButton;
-    SeekBar seekBar;
     boolean Alarmrepeatresult;//알람 반복 설정을 하였는지
 
     @Override
@@ -44,9 +44,6 @@ public class AlarmSetActivity extends AppCompatActivity{
         missionButton=(Button) findViewById(R.id.missionButton);
         repeatButton=(Button) findViewById(R.id.repeatButton);
         nextButton=(ImageButton) findViewById(R.id.nextButton);
-        seekBar=(SeekBar) findViewById(R.id.seekBar);
-        seekBar.getProgressDrawable().setColorFilter(Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
-        seekBar.getThumb().setColorFilter( Color.rgb(1,123,236), PorterDuff.Mode.SRC_IN );
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
@@ -81,7 +78,7 @@ public class AlarmSetActivity extends AppCompatActivity{
                 intent.putExtra("hour",hour);
                 intent.putExtra("minute",minute);
                 intent.putExtra("category",category);
-                intent.putExtra("dayindex",index);
+                intent.putExtra("dayindex",dayindex);
                 intent.putExtra("inputcount",inputcount);
                 intent.putExtra("wordcount",wordcount);
 
@@ -110,6 +107,7 @@ public class AlarmSetActivity extends AppCompatActivity{
 //                int cnt=0;
                 index = data.getIntArrayExtra("dayindex");
                 String day[] = {"일", "월", "화", "수", "목", "금", "토"};
+                indextoString(index,day);
                 Toast.makeText(getApplicationContext(), "메뉴화면으로부터 응답 : " + index[0]+""+index[1]+""+index[2]+""+index[3]+""+index[4]+""+index[5]+""+index[6], Toast.LENGTH_SHORT).show();
                 DayButtonSet(index, day);
             }
@@ -120,6 +118,17 @@ public class AlarmSetActivity extends AppCompatActivity{
             }
 
 //            전페이지에서 보낸 값을 받아오는 메서드
+        }
+    }
+
+    public void indextoString(int index[],String day[]){
+        dayindex="";
+        for(int i=0;i<index.length;i++){
+            if(index[i]==1)
+                dayindex+=day[i]+"/";
+            else{
+                dayindex+="X/";
+            }
         }
     }
 

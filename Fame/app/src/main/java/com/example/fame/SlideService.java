@@ -10,20 +10,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
-
-;import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
+import androidx.annotation.RequiresApi;
 
 public class SlideService extends Service {
     private SlideReceiver mReceiver=null;
     int id;
     String category;
-    private String ANDROID_CHANNER_ID="com.example.fame";
-
+    private String ANDROID_CHANNER_ID="com.example.fame.slide";
+    Handler handler = new Handler();
+    int cnt=0;
     public SlideService() {
     }
 
@@ -69,7 +69,7 @@ public class SlideService extends Service {
             Notification notification=builder.build();
             startForeground(1,notification);
         }else startForeground(1,new Notification());
-        registerRestartAlarm(true);
+       // registerRestartAlarm(true);
         return START_REDELIVER_INTENT;
     }
 
@@ -80,7 +80,7 @@ public class SlideService extends Service {
         //Toast.makeText(this, "stopservice", Toast.LENGTH_SHORT).show();
         if(mReceiver != null){
             unregisterReceiver(mReceiver);
-            registerRestartAlarm(false);
+           // registerRestartAlarm(false);
         }
     }
 
@@ -89,18 +89,18 @@ public class SlideService extends Service {
         return null;
     }
 
-    public void registerRestartAlarm(boolean isOn){
-        //Toast.makeText(this, ""+isOn, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(SlideService.this, RestartReceiver.class);
-        intent.putExtra("id",id);
-        intent.setAction(RestartReceiver.ACTION_RESTART_SERVICE);
-        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
-        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-        if(isOn){
-            am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 1000, 10000, sender);
-        }else{
-            am.cancel(sender);
-        }
-    }
+//    public void registerRestartAlarm(boolean isOn){
+//        //Toast.makeText(this, ""+isOn, Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(SlideService.this, RestartReceiver.class);
+//        intent.putExtra("id",id);
+//        intent.setAction(RestartReceiver.ACTION_RESTART_SERVICE);
+//        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+//
+//        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        if(isOn){
+//            am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 1000, 10000, sender);
+//        }else{
+//            am.cancel(sender);
+//        }
+//    }
 }

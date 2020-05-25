@@ -1,7 +1,6 @@
 package com.example.fame;
 
 import android.app.KeyguardManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,12 +28,11 @@ public class SlideReceiver extends BroadcastReceiver {
                 telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
             }
             if (isPhoneIdle) {
-                SlideService slideService=new SlideService();
                 Log.d("","화면 꺼짐");
                 if(category.equals("기본")){
                     intent = new Intent(context, SlideBasicActivity.class);
                 }else if(category.equals("입력하기")){
-                    intent = new Intent(context, InputActivity.class);
+                    intent = new Intent(context, SlideInputActivity.class);
                 }
                 intent.putExtra("id",id);
                 //intent.putExtra("category",category);

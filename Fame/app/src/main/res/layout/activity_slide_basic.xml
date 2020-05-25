@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/wordText"
+            android:id="@+id/endText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="banana"
@@ -32,7 +32,7 @@
 
 
         <TextView
-            android:id="@+id/leftText"
+            android:id="@+id/startText"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginBottom="32dp"

@@ -2,6 +2,7 @@ package com.example.fame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +20,13 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
     ArrayAdapter levelAdapter;
     String hour;
     String minute;
-    int[] index;
+    String  dayindex;
     String category;
     int inputcount;
     int wordcount;
     String level;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +39,17 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
 
         hour = intent.getStringExtra("hour");
         minute = intent.getStringExtra("minute");
-        index = intent.getIntArrayExtra("dayindex");
+        dayindex = intent.getStringExtra("dayindex");
         category = intent.getStringExtra("category");
         wordcount=intent.getIntExtra("wordcount",-1);
         inputcount = intent.getIntExtra("inputcount", -1);
-            Toast.makeText(getApplicationContext(), "알람 : " + hour + "," + minute+ "," + index[0]+ "," + inputcount +","+ category, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "알람 : " + hour + "," + minute+ "," +dayindex+ "," + inputcount +","+ category, Toast.LENGTH_LONG).show();
         //}
        // else Toast.makeText(getApplicationContext(), "알람 : " + hour + "," + minute+ "," + index[0] +","+ category, Toast.LENGTH_LONG).show();
 
-        levelSpinner=(Spinner)findViewById(R.id.levelSpinner);
-        levelAdapter = ArrayAdapter.createFromResource(this, R.array.level, android.R.layout.simple_spinner_item);
+        levelSpinner=(Spinner)findViewById(R.id.levelSpinner);//android.R.layout.simple_spinner_item
+        levelAdapter = ArrayAdapter.createFromResource(this, R.array.level, R.layout.spinner_item);
+        //R.layout.support_simple_spinner_dropdown_item
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelSpinner.setAdapter(levelAdapter);//arrays.xml과 Spinner 연결
         levelSpinner.getAdapter();
@@ -62,6 +65,7 @@ public class AlarmLevelSetActivity extends AppCompatActivity {
                 intent.putExtra("level", level);
                 intent.putExtra("inputcount", inputcount);
                 intent.putExtra("wordcount", wordcount);
+                intent.putExtra("dayindex", dayindex);
 
                 startActivity(intent);
             }

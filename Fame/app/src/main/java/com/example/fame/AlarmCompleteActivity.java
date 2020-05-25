@@ -39,7 +39,7 @@ public class AlarmCompleteActivity extends AppCompatActivity {
 
     String hour;
     String minute;
-    int[] index;
+    String dayindex;
     String category;
     int inputcount;
     String level;
@@ -70,13 +70,13 @@ public class AlarmCompleteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         hour = intent.getStringExtra("hour");
         minute = intent.getStringExtra("minute");
-        index = intent.getIntArrayExtra("dayindex");
+        dayindex = intent.getStringExtra("dayindex");
         category = intent.getStringExtra("category");
         level=intent.getStringExtra("level");
         inputcount = intent.getIntExtra("inputcount", -1);
         wordcount = intent.getIntExtra("wordcount", -1);
 
-//        Toast.makeText(getApplicationContext(), "슬라이드 : " + category + "," + hour+ "," + minute+ "," + inputcount+"," + level+","+index[0], Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "슬라이드 : " + category + "," + hour+ "," + minute+ "," + inputcount+"," + level+","+dayindex, Toast.LENGTH_LONG).show();
 
         this.calendar = Calendar.getInstance();
 
@@ -92,6 +92,7 @@ public class AlarmCompleteActivity extends AppCompatActivity {
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_CATEGORY, category);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_INPUTCOUNT, inputcount);
                 values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_WORDCOUNT, wordcount);
+                values.put(AlarmCategory.CategoryEntry.COLUMN_NAME_INDEX, dayindex);
                 getDB();
                 setAlarm();
                 Intent intent=new Intent(AlarmCompleteActivity.this , EffortmodeActivity.class);
@@ -126,30 +127,41 @@ public class AlarmCompleteActivity extends AppCompatActivity {
                 null,null,null,null,null,null);
 
         cursor.moveToLast();
-        String hour=cursor.getString(1);
-        String minute=cursor.getString(2);
-
+        String hour=cursor.getString(cursor.getColumnIndex("hour"));
+        String minute=cursor.getString(cursor.getColumnIndex("minute"));
+        int id= Integer.parseInt(cursor.getString(cursor.getColumnIndex("_id")));
         Log.e("",hour);
         Log.e("",minute);
-
+        Log.e("",id+"");
         this.calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour));
         this.calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
-        this.calendar.set(Calendar.SECOND, 0);
+        this.calendar.set(Calendar.SECOND, 0);//10초뒤
+        long aTime = System.currentTimeMillis();
+        long bTime = calendar.getTimeInMillis();
+        long interval = 1000 * 60 * 60  * 24;
+        while(aTime>bTime){
+            bTime += interval;
+        }
         Log.e("아이디", String.valueOf(Integer.parseInt(cursor.getString(0))));
 
         //알람 설정
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent=new Intent(this,AlarmReceiver.class);
 //        intent.setAction();
-        pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(cursor.getString(0)), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("category",category);
+        intent.putExtra("id",id);
+        intent.putExtra("dayindex",cursor.getString(cursor.getColumnIndex("dayindex")));
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,this.calendar.getTimeInMillis(),pendingIntent);
-        }else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,this.calendar.getTimeInMillis(),pendingIntent);
-        }else{
-            alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
-        }
+        pendingIntent = (PendingIntent) PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//            //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,bTime,pendingIntent);
+//            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, bTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+//        }else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+//            alarmManager.setExact(AlarmManager.RTC_WAKEUP,bTime,pendingIntent);
+//        }else{
+//            alarmManager.set(AlarmManager.RTC_WAKEUP,bTime, pendingIntent);
+//        }// this.calendar.getTimeInMillis()
 
         //Toast 보여주기(알람 시간 표시)
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault());

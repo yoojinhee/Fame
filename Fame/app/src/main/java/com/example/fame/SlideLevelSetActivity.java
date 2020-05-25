@@ -45,7 +45,7 @@ public class SlideLevelSetActivity extends AppCompatActivity {
 //        else Toast.makeText(getApplicationContext(), "슬라이드 : " + category + "," + wordcount+ "," + repeatcount , Toast.LENGTH_LONG).show();
 
         levelSpinner=(Spinner)findViewById(R.id.levelSpinner);
-        levelAdapter = ArrayAdapter.createFromResource(this, R.array.level, android.R.layout.simple_spinner_item);
+        levelAdapter = ArrayAdapter.createFromResource(this, R.array.level, R.layout.spinner_item);
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelSpinner.setAdapter(levelAdapter);//arrays.xml과 Spinner 연결
 

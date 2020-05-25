@@ -9,15 +9,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class WordListViewAdapter extends BaseAdapter {
+public class WordListViewAdapter extends BaseAdapter{
 
     private ArrayList<Word> data;
-    private Context context;
     private int page;
     LayoutInflater mLayoutInflater = null;
 
     public WordListViewAdapter( Context content,ArrayList<Word> data,int page){
-        this.context = context;
         this.data = data;
         this.page=page;
         mLayoutInflater = LayoutInflater.from(content);
@@ -40,14 +38,16 @@ public class WordListViewAdapter extends BaseAdapter {
         //position=5*(page-1)+position;
         return position;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //View view = LayoutInflater.from(context).inflate(R.layout.word, null);
         position=5*(page-1)+position;
+
         View view = mLayoutInflater.inflate(R.layout.word, null);
-        TextView word = view.findViewById(R.id.wordText);
-        TextView mean = view.findViewById(R.id.meanText);
+
+        final int finalPosition = position;
+        TextView word = view.findViewById(R.id.endText);
+        TextView mean = view.findViewById(R.id.startText);
         word.setText(data.get(position).getWord());
         mean.setText(data.get(position).getMean());
         return view;

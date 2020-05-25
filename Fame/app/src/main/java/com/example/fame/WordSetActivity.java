@@ -99,5 +99,4 @@ public class WordSetActivity extends AppCompatActivity {
         outState.putString("data",data);
 
     }//화면을 돌려도 값을 변하지 X
-
 }

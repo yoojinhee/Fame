@@ -33,7 +33,7 @@ import javax.security.auth.Destroyable;
 public class SelModeActivity extends AppCompatActivity {
 
     ImageButton effortButton;
-    //    ImageButton basicButton;
+    ImageButton basicButton;
     SQLiteDatabase db;
     DBHelper dbHelper;
     public List<Word> List ;
@@ -52,6 +52,8 @@ public class SelModeActivity extends AppCompatActivity {
         initLoadDB();
 
         effortButton = (ImageButton) findViewById(R.id.effortButton);
+        basicButton = (ImageButton) findViewById(R.id.basicButton);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기
 
         Toast.makeText(SelModeActivity.this, ""+count(),Toast.LENGTH_SHORT).show();
@@ -70,17 +72,14 @@ public class SelModeActivity extends AppCompatActivity {
             }
         });
 
-
-//        basicButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent=new Intent(getApplicationContext(),.class);
-////                startActivity(intent);
-//                Intent intent=new Intent(getApplicationContext(),CategoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-    }
+        basicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BasicmodeActivity.class);
+                startActivity(intent);
+            }
+        });
+     }
     @TargetApi(Build.VERSION_CODES.M) //M 버전 이상 API를 타겟으로,
     public void PermissionOverlay() {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -143,7 +142,7 @@ public class SelModeActivity extends AppCompatActivity {
         mDbHelper.createDatabase();
         mDbHelper.open();
         // db에 있는 값들을 model을 적용해서 넣는다.
-        List = mDbHelper.getTableData();
+        //List = mDbHelper.getTableData();
         // db 닫기
         mDbHelper.close();
     }

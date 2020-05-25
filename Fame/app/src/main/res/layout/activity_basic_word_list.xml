@@ -15,16 +15,6 @@
         android:gravity="center|center_horizontal"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:background="#037CEC"
-            android:text="삭제"
-            android:textColor="#F5F0F0"
-            android:textSize="18sp" />
-
         <TextView
             android:id="@+id/levelText"
             android:layout_width="match_parent"

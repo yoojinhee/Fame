@@ -20,4 +20,8 @@
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#017BEC</item>
     </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="backgroundTint">#017BEC</item>
+    </style>
 </resources>

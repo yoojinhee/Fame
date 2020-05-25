@@ -20,14 +20,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SlideBasicActivity"></activity>
-        <activity android:name=".AlarmAcitivity" />
+        <activity android:name=".BasicWordListActivity"></activity>
+        <activity android:name=".HighLevelActivity" />
+        <activity android:name=".IntermediatelActivity" />
+        <activity android:name=".BasicWordActivity" />
+        <activity android:name=".BasicmodeActivity" />
+        <activity android:name=".AlarmBasicActivity" />
+        <activity android:name=".SlideBasicActivity" />
+        <activity android:name=".AlarmInputAcitivity" />
         <activity android:name=".WordActivity" />
-        <activity android:name=".ConfigActivity" />
         <activity android:name=".AlarmCompleteActivity" />
         <activity android:name=".EffortmodeActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".InputActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SlideInputActivity" />
         <activity android:name=".AlarmLevelSetActivity" />
         <activity android:name=".SlideLevelSetActivity" />
         <activity android:name=".SliderepeatSetActivity" />
@@ -49,18 +54,15 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MissionActivity" />
         <activity android:name=".SignUpActivity" /> <!-- 암시적 인텐트로 실행되는 브로드캐스크 리시버 등록 -->
-
         <receiver
             android:name=".SlideReceiver"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
 
         <service
             android:name=".SlideService"
             android:enabled="true"
             android:exported="true" /> <!-- android:exported="true" -->
-
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
@@ -73,12 +75,11 @@
 
         <receiver
             android:name=".RestartReceiver"
-            android:process=".remote" >
+            android:process=".remote">
             <intent-filter>
                 <action android:name="RestartReceiver.restart" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".BootReceiver"
             android:enabled="true"

@@ -9,7 +9,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/wordText"
+            android:id="@+id/endText"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
             android:layout_weight="1"
@@ -19,7 +19,7 @@
             android:textColor="#070707" />
 
         <TextView
-            android:id="@+id/meanText"
+            android:id="@+id/startText"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
             android:layout_weight="1"

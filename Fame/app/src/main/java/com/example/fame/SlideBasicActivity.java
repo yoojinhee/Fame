@@ -7,7 +7,6 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -65,9 +64,9 @@ public class SlideBasicActivity extends AppCompatActivity {
         id=intent.getIntExtra("id",-1);
 
         seekBar=findViewById(R.id.seekBar);
-        leftText=findViewById(R.id.leftText);
+        leftText=findViewById(R.id.startText);
         rightText=findViewById(R.id.rightText);
-        wordText=findViewById(R.id.wordText);
+        wordText=findViewById(R.id.endText);
         getFileName();
         wordinfo();
 
@@ -119,7 +118,8 @@ public class SlideBasicActivity extends AppCompatActivity {
     public void checkChoice(String choice){
 
         if(answer.equals(choice)){
-            ActivityCompat.finishAffinity(SlideBasicActivity.this);//모든 엑티비티 종료
+           // ActivityCompat.finishAffinity(SlideBasicActivity.this);//모든 엑티비티 종료
+            finish();
         }else{
             seekBar.setProgress(50);
         }

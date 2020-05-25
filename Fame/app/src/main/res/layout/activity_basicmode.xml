@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#017BEC"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".BasicmodeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="0"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="초급"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:foregroundGravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/beggin01"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:text="chapter01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/beggin02"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="chapter02" />
+
+                <Button
+                    android:id="@+id/beggin03"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="chapter03" />
+
+                <Button
+                    android:id="@+id/beggin04"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="chapter04" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/levelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="중급"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView23"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/intermediate01"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:text="chapter01"
+                    app:layout_constraintBottom_toTopOf="@+id/textView23"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/levelText" />
+
+                <Button
+                    android:id="@+id/intermediate02"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="chapter02" />
+
+                <Button
+                    android:id="@+id/intermediate03"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/intermediate04"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/intermediate05"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="Button" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="고급"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/high01"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:text="chapter01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                <Button
+                    android:id="@+id/high02"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/high03"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/high04"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="0"
+                    android:text="Button" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>
